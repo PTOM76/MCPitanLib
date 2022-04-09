@@ -8,6 +8,6 @@ public class MCPitanLibFabric implements ModInitializer {
     @Override
     public void onInitialize() {
         MCPitanLib.init();
-        SampleMod.init();
+        //SampleMod.init();
     }
 }
