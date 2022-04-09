@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "mcpitanlib",
+  "version": "${version}",
+  "name": "MCPitanLib",
+  "description": "Pitan's Mod Library",
+  "authors": [
+    "Pitan"
+  ],
+  "contributors": [],
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/mcpitanlib",
+    "sources": "https://github.com/PTOM76/mcpitanlib",
+    "issues": "https://github.com/PTOM76/mcpitanlib/issues"
+  },
+  "license": "MIT",
+  "icon": "assets/mcpitanlib/logo.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "ml.pkom.mcpitanlib.fabric.MCPitanLibFabric"
+    ]
+  },
+  "mixins": [
+    "mcpitanlib.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": "*",
+    "fabric": "*",
+    "minecraft": "*",
+    "architectury": "*"
+  },
+  "suggests": {
+    "flamingo": "*"
+  }
+}
