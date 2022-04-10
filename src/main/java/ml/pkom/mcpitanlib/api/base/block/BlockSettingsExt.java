@@ -1,11 +1,15 @@
 package ml.pkom.mcpitanlib.api.base.block;
 
+import ml.pkom.mcpitanlib.api.base.tag.MineableToolTags;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.MapColor;
 import net.minecraft.block.Material;
 
 public class BlockSettingsExt extends FabricBlockSettings {
+
+    private MineableToolTags mineableToolTags = MineableToolTags.NONE;
+    private int mineableLevel = 0;
 
     public BlockSettingsExt(Material material, MapColor color) {
         super(material, color);
@@ -33,5 +37,24 @@ public class BlockSettingsExt extends FabricBlockSettings {
 
     public BlockSettingsExt changeRequiresTool() {
         return (BlockSettingsExt) super.requiresTool();
+    }
+
+    public BlockSettingsExt breakByTool(MineableToolTags toolTags) {
+        breakByTool(toolTags, 0);
+        return this;
+    }
+
+    public BlockSettingsExt breakByTool(MineableToolTags toolTags, int level) {
+        this.mineableToolTags = toolTags;
+        this.mineableLevel = level;
+        return this;
+    }
+
+    public int getMineableLevel() {
+        return mineableLevel;
+    }
+
+    public MineableToolTags getMineableToolTags() {
+        return mineableToolTags;
     }
 }

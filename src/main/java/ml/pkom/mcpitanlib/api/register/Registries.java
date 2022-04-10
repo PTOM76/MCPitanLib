@@ -1,26 +1,29 @@
 package ml.pkom.mcpitanlib.api.register;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import ml.pkom.mcpitanlib.api.MCPitanLib;
 import ml.pkom.mcpitanlib.api.base.block.BlockEntityExt;
 import ml.pkom.mcpitanlib.api.base.block.BlockExt;
 import ml.pkom.mcpitanlib.api.base.entity.EntityExt;
 import ml.pkom.mcpitanlib.api.base.item.ItemExt;
+import ml.pkom.mcpitanlib.api.base.tag.MineableToolTags;
 import ml.pkom.mcpitanlib.api.base.util.IdentifierExt;
+import ml.pkom.mcpitanlib.api.base.util.RecipeManageHelper;
+import ml.pkom.mcpitanlib.api.event.MiningToolEvent;
 import ml.pkom.mcpitanlib.api.event.RegisteredEvent;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.item.BlockItem;
-import net.minecraft.util.registry.BuiltinRegistries;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryEntry;
-import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.util.registry.*;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.YOffset;
@@ -30,6 +33,8 @@ import net.minecraft.world.gen.placementmodifier.HeightRangePlacementModifier;
 import net.minecraft.world.gen.placementmodifier.SquarePlacementModifier;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
@@ -82,7 +87,28 @@ public class Registries {
         if (doItemRegistration) {
             info.setItem(Registry.register(Registry.ITEM, id, new BlockItem(block, block.getItemSettings())));
         }
+        registerMineable(block);
         return info;
+    }
+
+    private static Map<Block, MiningToolEvent> mineableToolTagsMap = new HashMap<>();
+
+    public static Map<Block, MiningToolEvent> getMineableToolTagsMap() {
+        return mineableToolTagsMap;
+    }
+
+    public static boolean containsMineableToolTags(Block block) {
+        return getMineableToolTagsMap().containsKey(block);
+    }
+
+    /**
+     * Register mineable tag
+     * @param block Block
+     */
+    public static void registerMineable(BlockExt block) {
+        if (block.getBlockSettings().getMineableToolTags() != MineableToolTags.NONE) {
+            mineableToolTagsMap.put(block, new MiningToolEvent(block.getBlockSettings().getMineableToolTags(), block.getBlockSettings().getMineableLevel()));
+        }
     }
 
     /**
@@ -186,7 +212,7 @@ public class Registries {
 
     }
 
-    public static void registerGenerateOreInStone(IdentifierExt identifier, BlockExt block, int size, int spawnRate, int maxHeight) {
+    public static void registerGenerateOreInStone(IdentifierExt id, BlockExt block, int size, int spawnRate, int maxHeight) {
         ConfiguredFeature<?, ?> CONFIGURED_FEATURE = new ConfiguredFeature(Feature.ORE,
                 new OreFeatureConfig(OreConfiguredFeatures.STONE_ORE_REPLACEABLES, block.getDefaultState(), size));
 
@@ -194,20 +220,20 @@ public class Registries {
                 Arrays.asList(CountPlacementModifier.of(spawnRate), SquarePlacementModifier.of(), HeightRangePlacementModifier.uniform(YOffset.getBottom(), YOffset.fixed(maxHeight))));
 
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE,
-                identifier, CONFIGURED_FEATURE);
-        Registry.register(BuiltinRegistries.PLACED_FEATURE, identifier,
+                id, CONFIGURED_FEATURE);
+        Registry.register(BuiltinRegistries.PLACED_FEATURE, id,
                 PLACED_FEATURE);
 
         Predicate<BiomeSelectionContext> predicate = BiomeSelectors.all();
         BiomeModifications.addFeature(predicate, GenerationStep.Feature.UNDERGROUND_ORES,
-                RegistryKey.of(Registry.PLACED_FEATURE_KEY, identifier));
+                RegistryKey.of(Registry.PLACED_FEATURE_KEY, id));
     }
 
     public static void registerGenerateOre(BlockExt block, OreFeatureConfig.Target target, int size, int spawnRate, int maxHeight) {
         registerGenerateOre(new IdentifierExt(MCPitanLib.MOD_ID, Registry.ITEM.getId(block.asItem()).getPath() + "_ore"), block, target, size, spawnRate, maxHeight);
     }
 
-    public static void registerGenerateOre(IdentifierExt identifier, BlockExt block, OreFeatureConfig.Target target, int size, int spawnRate, int maxHeight) {
+    public static void registerGenerateOre(IdentifierExt id, BlockExt block, OreFeatureConfig.Target target, int size, int spawnRate, int maxHeight) {
         ConfiguredFeature<?, ?> CONFIGURED_FEATURE = new ConfiguredFeature(Feature.ORE,
                 new OreFeatureConfig(target.target, block.getDefaultState(), size));
 
@@ -215,20 +241,20 @@ public class Registries {
                 Arrays.asList(CountPlacementModifier.of(spawnRate), SquarePlacementModifier.of(), HeightRangePlacementModifier.uniform(YOffset.getBottom(), YOffset.fixed(maxHeight))));
 
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE,
-                identifier, CONFIGURED_FEATURE);
-        Registry.register(BuiltinRegistries.PLACED_FEATURE, identifier,
+                id, CONFIGURED_FEATURE);
+        Registry.register(BuiltinRegistries.PLACED_FEATURE, id,
                 PLACED_FEATURE);
 
         Predicate<BiomeSelectionContext> predicate = BiomeSelectors.all();
         BiomeModifications.addFeature(predicate, GenerationStep.Feature.UNDERGROUND_ORES,
-                RegistryKey.of(Registry.PLACED_FEATURE_KEY, identifier));
+                RegistryKey.of(Registry.PLACED_FEATURE_KEY, id));
     }
 
     public static void registerGenerateOreInStone(Biome biome, BlockExt block, int size, int spawnRate, int maxHeight) {
         registerGenerateOreInStone(new IdentifierExt(MCPitanLib.MOD_ID, Registry.ITEM.getId(block.asItem()).getPath() + "_ore"), biome, block, size, spawnRate, maxHeight);
     }
 
-    public static void registerGenerateOreInStone(IdentifierExt identifier, Biome biome, BlockExt block, int size, int spawnRate, int maxHeight) {
+    public static void registerGenerateOreInStone(IdentifierExt id, Biome biome, BlockExt block, int size, int spawnRate, int maxHeight) {
         ConfiguredFeature<?, ?> CONFIGURED_FEATURE = new ConfiguredFeature(Feature.ORE,
                 new OreFeatureConfig(OreConfiguredFeatures.STONE_ORE_REPLACEABLES, block.getDefaultState(), size));
 
@@ -236,13 +262,24 @@ public class Registries {
                 Arrays.asList(CountPlacementModifier.of(spawnRate), SquarePlacementModifier.of(), HeightRangePlacementModifier.uniform(YOffset.getBottom(), YOffset.fixed(maxHeight))));
 
         Registry.register(BuiltinRegistries.CONFIGURED_FEATURE,
-                identifier, CONFIGURED_FEATURE);
-        Registry.register(BuiltinRegistries.PLACED_FEATURE, identifier,
+                id, CONFIGURED_FEATURE);
+        Registry.register(BuiltinRegistries.PLACED_FEATURE, id,
                 PLACED_FEATURE);
 
         Predicate<BiomeSelectionContext> predicate = BiomeSelectors.includeByKey(BuiltinRegistries.BIOME.getKey(biome).get());
         BiomeModifications.addFeature(predicate, GenerationStep.Feature.UNDERGROUND_ORES,
-                RegistryKey.of(Registry.PLACED_FEATURE_KEY, identifier));
+                RegistryKey.of(Registry.PLACED_FEATURE_KEY, id));
 
+    }
+
+
+    public static void registerRecipe(IdentifierExt id, JsonObject recipe) {
+        RecipeManageHelper.addRecipe(id, recipe);
+    }
+
+    public static void registerRecipe(IdentifierExt id, String recipeJsonStr) {
+        Gson gson = new Gson();
+        JsonObject recipe = gson.fromJson(recipeJsonStr, JsonObject.class);
+        registerRecipe(id, recipe);
     }
 }

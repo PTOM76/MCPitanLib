@@ -11,25 +11,27 @@ public class BlockExt extends Block {
     private String blockId;
 
     private ItemSettingsExt itemSettings = new ItemSettingsExt();
+    private BlockSettingsExt blockSettings;
 
     public BlockExt(String id, BlockSettingsExt settings, ItemGroup itemGroup) {
-        super(settings);
-        this.blockId = id;
+        this(id, settings);
         setGroupTab(itemGroup);
     }
 
     public BlockExt(String id, BlockSettingsExt settings, ItemSettingsExt itemSettings) {
-        super(settings);
-        this.blockId = id;
+        this(id, settings);
         setItemSettings(itemSettings);
     }
 
     public BlockExt(String id, BlockSettingsExt settings) {
         super(settings);
         this.blockId = id;
+        this.blockSettings = settings;
     }
-    
-    
+
+    public BlockSettingsExt getBlockSettings() {
+        return blockSettings;
+    }
 
     public BlockExt getBlockExt() {
         return this;
