@@ -1,9 +1,9 @@
 package ml.pkom.mcpitanlib.debug;
 
-import ml.pkom.mcpitanlib.api.base.BlockExt;
-import ml.pkom.mcpitanlib.api.base.BlockSettingsExt;
-import ml.pkom.mcpitanlib.api.base.IdentifierExt;
-import ml.pkom.mcpitanlib.api.base.ItemGroupExt;
+import ml.pkom.mcpitanlib.api.base.block.BlockExt;
+import ml.pkom.mcpitanlib.api.base.block.BlockSettingsExt;
+import ml.pkom.mcpitanlib.api.base.util.IdentifierExt;
+import ml.pkom.mcpitanlib.api.base.item.ItemGroupExt;
 import ml.pkom.mcpitanlib.api.register.Registries;
 import net.minecraft.block.MapColor;
 import net.minecraft.block.Material;

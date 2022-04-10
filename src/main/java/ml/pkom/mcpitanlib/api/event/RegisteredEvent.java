@@ -1,15 +1,15 @@
-package ml.pkom.mcpitanlib.api.register.info;
+package ml.pkom.mcpitanlib.api.event;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 
-public class RegisteredInfo {
+public class RegisteredEvent {
     private Item item;
     private Block block;
 
     private String type;
 
-    public RegisteredInfo(String type) {
+    public RegisteredEvent(String type) {
 
     }
 

@@ -1,5 +1,6 @@
-package ml.pkom.mcpitanlib.api.base;
+package ml.pkom.mcpitanlib.api.base.item;
 
+import ml.pkom.mcpitanlib.api.base.util.IdentifierExt;
 import net.minecraft.item.Item;
 
 public class ItemExt extends Item {

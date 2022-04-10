@@ -1,4 +1,4 @@
-package ml.pkom.mcpitanlib.api.base;
+package ml.pkom.mcpitanlib.api.base.util;
 
 import net.minecraft.util.Identifier;
 

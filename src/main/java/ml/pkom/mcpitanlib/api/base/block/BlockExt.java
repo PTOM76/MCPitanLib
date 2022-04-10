@@ -1,5 +1,7 @@
-package ml.pkom.mcpitanlib.api.base;
+package ml.pkom.mcpitanlib.api.base.block;
 
+import ml.pkom.mcpitanlib.api.base.util.IdentifierExt;
+import ml.pkom.mcpitanlib.api.base.item.ItemSettingsExt;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemGroup;
 

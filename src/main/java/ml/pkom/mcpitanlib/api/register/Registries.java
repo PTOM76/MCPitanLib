@@ -1,21 +1,22 @@
 package ml.pkom.mcpitanlib.api.register;
 
 import ml.pkom.mcpitanlib.api.MCPitanLib;
-import ml.pkom.mcpitanlib.api.base.*;
-import ml.pkom.mcpitanlib.api.register.info.RegisteredInfo;
+import ml.pkom.mcpitanlib.api.base.block.BlockEntityExt;
+import ml.pkom.mcpitanlib.api.base.block.BlockExt;
+import ml.pkom.mcpitanlib.api.base.entity.EntityExt;
+import ml.pkom.mcpitanlib.api.base.item.ItemExt;
+import ml.pkom.mcpitanlib.api.base.util.IdentifierExt;
+import ml.pkom.mcpitanlib.api.event.RegisteredEvent;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryEntry;
@@ -42,8 +43,8 @@ public class Registries {
      * @param item Item
      * @return Registered info
      */
-    public static RegisteredInfo registerItem(IdentifierExt id, ItemExt item) {
-        RegisteredInfo info = new RegisteredInfo("item");
+    public static RegisteredEvent registerItem(IdentifierExt id, ItemExt item) {
+        RegisteredEvent info = new RegisteredEvent("item");
         info.setItem(Registry.register(Registry.ITEM, id, item));
         return info;
     }
@@ -54,7 +55,7 @@ public class Registries {
      * @param item Item
      * @return Registered info
      */
-    public static RegisteredInfo registerItem(String idStr, ItemExt item) {
+    public static RegisteredEvent registerItem(String idStr, ItemExt item) {
         return registerItem(new IdentifierExt(idStr), item);
     }
 
@@ -64,7 +65,7 @@ public class Registries {
      * @param block Block
      * @return Registered info
      */
-    public static RegisteredInfo registerBlock(IdentifierExt id, BlockExt block) {
+    public static RegisteredEvent registerBlock(IdentifierExt id, BlockExt block) {
         return registerBlock(id, block, true);
     }
 
@@ -75,8 +76,8 @@ public class Registries {
      * @param doItemRegistration Whether to register items as well
      * @return Registered info
      */
-    public static RegisteredInfo registerBlock(IdentifierExt id, BlockExt block, boolean doItemRegistration) {
-        RegisteredInfo info = new RegisteredInfo("block");
+    public static RegisteredEvent registerBlock(IdentifierExt id, BlockExt block, boolean doItemRegistration) {
+        RegisteredEvent info = new RegisteredEvent("block");
         info.setBlock(Registry.register(Registry.BLOCK, id, block));
         if (doItemRegistration) {
             info.setItem(Registry.register(Registry.ITEM, id, new BlockItem(block, block.getItemSettings())));
@@ -156,7 +157,7 @@ public class Registries {
      * @return Registered info
      */
     // IDがmcpitanlib:(数値)になるので注意
-    public static RegisteredInfo registerItem(ItemExt item) {
+    public static RegisteredEvent registerItem(ItemExt item) {
         itemIdCount++;
         return registerItem(new IdentifierExt(MCPitanLib.MOD_ID, String.valueOf(itemIdCount)), item);
     }
@@ -168,7 +169,7 @@ public class Registries {
      * @return Registered info
      */
     // IDがmcpitanlib:(数値)になるので注意
-    public static RegisteredInfo registerBlock(BlockExt block) {
+    public static RegisteredEvent registerBlock(BlockExt block) {
         itemIdCount++;
         return registerBlock(new IdentifierExt(MCPitanLib.MOD_ID, String.valueOf(itemIdCount)), block);
     }

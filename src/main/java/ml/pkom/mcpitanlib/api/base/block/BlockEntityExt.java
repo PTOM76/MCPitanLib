@@ -1,4 +1,4 @@
-package ml.pkom.mcpitanlib.api.base;
+package ml.pkom.mcpitanlib.api.base.block;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
