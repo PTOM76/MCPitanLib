@@ -7,8 +7,8 @@ public class MiningToolEvent {
     private MineableToolTags toolTags;
 
     public MiningToolEvent(MineableToolTags toolTags, int level) {
-        this.level = level;
-        this.toolTags = toolTags;
+        setLevel(level);
+        setToolTags(toolTags);
     }
 
     public void setLevel(int level) {
