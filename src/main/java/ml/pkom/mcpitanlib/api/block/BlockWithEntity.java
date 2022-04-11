@@ -1,7 +1,7 @@
-package ml.pkom.mcpitanlib.api.base.block;
+package ml.pkom.mcpitanlib.api.block;
 
 import ml.pkom.mcpitanlib.api.event.TileCreateEvent;
-import ml.pkom.mcpitanlib.api.base.item.ItemSettingsExt;
+import ml.pkom.mcpitanlib.api.item.ItemSettingsExt;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;

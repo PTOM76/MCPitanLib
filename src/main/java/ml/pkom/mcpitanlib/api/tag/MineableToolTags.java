@@ -1,4 +1,4 @@
-package ml.pkom.mcpitanlib.api.base.tag;
+package ml.pkom.mcpitanlib.api.tag;
 
 public enum MineableToolTags {
     NONE,

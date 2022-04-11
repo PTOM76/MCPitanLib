@@ -1,10 +1,10 @@
 package ml.pkom.mcpitanlib.debug;
 
-import ml.pkom.mcpitanlib.api.base.block.BlockExt;
-import ml.pkom.mcpitanlib.api.base.block.BlockSettingsExt;
-import ml.pkom.mcpitanlib.api.base.tag.MineableToolTags;
-import ml.pkom.mcpitanlib.api.base.util.IdentifierExt;
-import ml.pkom.mcpitanlib.api.base.item.ItemGroupExt;
+import ml.pkom.mcpitanlib.api.block.BlockExt;
+import ml.pkom.mcpitanlib.api.block.BlockSettingsExt;
+import ml.pkom.mcpitanlib.api.tag.MineableToolTags;
+import ml.pkom.mcpitanlib.api.util.IdentifierExt;
+import ml.pkom.mcpitanlib.api.item.ItemGroupExt;
 import ml.pkom.mcpitanlib.api.register.Registries;
 import net.minecraft.block.MapColor;
 import net.minecraft.block.Material;

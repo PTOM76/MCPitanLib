@@ -1,4 +1,4 @@
-package ml.pkom.mcpitanlib.api.base.block;
+package ml.pkom.mcpitanlib.api.block;
 
 import ml.pkom.mcpitanlib.api.event.TileCreateEvent;
 import net.minecraft.block.BlockEntityProvider;

@@ -1,4 +1,4 @@
-package ml.pkom.mcpitanlib.api.base.item;
+package ml.pkom.mcpitanlib.api.item;
 
 import ml.pkom.mcpitanlib.api.builder.FoodComponentBuilder;
 import net.minecraft.item.Item;

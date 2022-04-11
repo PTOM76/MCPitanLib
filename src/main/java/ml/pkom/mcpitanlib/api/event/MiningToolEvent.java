@@ -1,6 +1,6 @@
 package ml.pkom.mcpitanlib.api.event;
 
-import ml.pkom.mcpitanlib.api.base.tag.MineableToolTags;
+import ml.pkom.mcpitanlib.api.tag.MineableToolTags;
 
 public class MiningToolEvent {
     private int level;

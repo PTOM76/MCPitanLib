@@ -1,6 +1,6 @@
 package ml.pkom.mcpitanlib.mixin;
 
-import ml.pkom.mcpitanlib.api.base.tag.MineableToolTags;
+import ml.pkom.mcpitanlib.api.tag.MineableToolTags;
 import ml.pkom.mcpitanlib.api.event.MiningToolEvent;
 import ml.pkom.mcpitanlib.api.register.Registries;
 import net.minecraft.block.BlockState;

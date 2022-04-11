@@ -1,4 +1,4 @@
-package ml.pkom.mcpitanlib.api.base.entity;
+package ml.pkom.mcpitanlib.api.entity;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;

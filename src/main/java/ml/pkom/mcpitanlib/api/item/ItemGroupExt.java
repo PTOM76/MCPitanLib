@@ -1,4 +1,4 @@
-package ml.pkom.mcpitanlib.api.base.item;
+package ml.pkom.mcpitanlib.api.item;
 
 import net.minecraft.item.ItemGroup;
 public abstract class ItemGroupExt extends ItemGroup {

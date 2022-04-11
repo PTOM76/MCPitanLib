@@ -1,6 +1,6 @@
-package ml.pkom.mcpitanlib.api.base.block;
+package ml.pkom.mcpitanlib.api.block;
 
-import ml.pkom.mcpitanlib.api.base.tag.MineableToolTags;
+import ml.pkom.mcpitanlib.api.tag.MineableToolTags;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.MapColor;

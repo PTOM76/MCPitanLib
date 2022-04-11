@@ -2,8 +2,8 @@ package ml.pkom.mcpitanlib.mixin;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import ml.pkom.mcpitanlib.api.base.util.IdentifierExt;
-import ml.pkom.mcpitanlib.api.base.util.RecipeManageHelper;
+import ml.pkom.mcpitanlib.api.util.IdentifierExt;
+import ml.pkom.mcpitanlib.api.util.RecipeManageHelper;
 import net.minecraft.recipe.RecipeManager;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
