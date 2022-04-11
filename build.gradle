@@ -116,11 +116,6 @@ publishing {
 				builtBy remapSourcesJar
 			}
 		}
-		productionRelease(MavenPublication) {
-			groupId = group
-			artifactId = 'MCPitanLib'
-			version = version
-		}
 	}
 
 	// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
