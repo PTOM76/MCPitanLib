@@ -1,4 +1,2 @@
-before_install:
-  - source ./install_jdk.sh --feature 17 --license MIT
-  - ./gradlew downloadAssets
-  - ./gradlew genSources
+jdk:
+  - openjdk17
