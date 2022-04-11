@@ -112,7 +112,7 @@ public class Registries {
     }
 
     /**
-     * Register BlockEntity (Tile)
+     * Register BlockEntity from BlockEntity class (Tile)
      * @param id BlockEntity id
      * @param blockEntity BlockEntity
      * @param blocks blocks
@@ -128,6 +128,23 @@ public class Registries {
                 throw new RuntimeException(e);
             }
         }, blocks).build(null));
+    }
+
+    /**
+     * Register BlockEntity from BlockEntityType (Tile)
+     * @param id BlockEntity id
+     * @param blockEntityType BlockEntityType
+     * @return BlockEntityType
+     */
+    public static BlockEntityType<?> registerBlockEntity(IdentifierExt id, BlockEntityType<?> blockEntityType) {
+        return Registry.register(Registry.BLOCK_ENTITY_TYPE, id, blockEntityType);
+    }
+
+    /*
+     * Alias
+     */
+    public static BlockEntityType<?> registerTile(IdentifierExt id, BlockEntityType<?> blockEntityType) {
+        return registerBlockEntity(id, blockEntityType);
     }
 
     /**
