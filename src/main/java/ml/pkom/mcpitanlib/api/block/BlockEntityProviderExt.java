@@ -9,6 +9,7 @@ import org.jetbrains.annotations.Nullable;
 
 public interface BlockEntityProviderExt extends BlockEntityProvider {
     @Nullable
+    @Override
     default BlockEntityExt createBlockEntity(BlockPos pos, BlockState state) {
         return createBlockEntity(new TileCreateEvent(pos, state));
     }

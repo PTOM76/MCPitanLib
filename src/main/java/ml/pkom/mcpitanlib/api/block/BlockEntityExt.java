@@ -32,10 +32,12 @@ public abstract class BlockEntityExt extends BlockEntity {
     }
 
     // 1.18
+    @Override
     public void writeNbt(NbtCompound nbt) {
         this.writeNbt(NbtTag.from(nbt));
     }
 
+    @Override
     public void readNbt(NbtCompound nbt) {
         this.readNbt(NbtTag.from(nbt));
     }

@@ -3,12 +3,8 @@ package ml.pkom.mcpitanlib.api.register;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import ml.pkom.mcpitanlib.api.MCPitanLib;
-import ml.pkom.mcpitanlib.api.block.BlockEntityExt;
 import ml.pkom.mcpitanlib.api.block.BlockExt;
-import ml.pkom.mcpitanlib.api.entity.EntityExt;
-import ml.pkom.mcpitanlib.api.item.ItemExt;
 import ml.pkom.mcpitanlib.api.tag.MineableToolTags;
-import ml.pkom.mcpitanlib.api.util.IdentifierExt;
 import ml.pkom.mcpitanlib.api.util.RecipeManageHelper;
 import ml.pkom.mcpitanlib.api.event.MiningToolEvent;
 import ml.pkom.mcpitanlib.api.event.RegisteredEvent;
@@ -18,11 +14,15 @@ import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.block.Block;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.*;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStep;
@@ -32,6 +32,7 @@ import net.minecraft.world.gen.placementmodifier.CountPlacementModifier;
 import net.minecraft.world.gen.placementmodifier.HeightRangePlacementModifier;
 import net.minecraft.world.gen.placementmodifier.SquarePlacementModifier;
 
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -48,7 +49,7 @@ public class Registries {
      * @param item Item
      * @return Registered info
      */
-    public static RegisteredEvent registerItem(IdentifierExt id, ItemExt item) {
+    public static RegisteredEvent registerItem(Identifier id, Item item) {
         RegisteredEvent info = new RegisteredEvent("item");
         info.setItem(Registry.register(Registry.ITEM, id, item));
         return info;
@@ -60,20 +61,10 @@ public class Registries {
      * @param item Item
      * @return Registered info
      */
-    public static RegisteredEvent registerItem(String idStr, ItemExt item) {
-        return registerItem(new IdentifierExt(idStr), item);
+    public static RegisteredEvent registerItem(String idStr, Item item) {
+        return registerItem(new Identifier(idStr), item);
     }
-
-    /**
-     * Register block
-     * @param id Block id
-     * @param block Block
-     * @return Registered info
-     */
-    public static RegisteredEvent registerBlock(IdentifierExt id, BlockExt block) {
-        return registerBlock(id, block, true);
-    }
-
+    
     /**
      * Register block
      * @param id Block id
@@ -81,13 +72,40 @@ public class Registries {
      * @param doItemRegistration Whether to register items as well
      * @return Registered info
      */
-    public static RegisteredEvent registerBlock(IdentifierExt id, BlockExt block, boolean doItemRegistration) {
+    public static RegisteredEvent registerBlock(Identifier id, BlockExt block, boolean doItemRegistration) {
         RegisteredEvent info = new RegisteredEvent("block");
         info.setBlock(Registry.register(Registry.BLOCK, id, block));
         if (doItemRegistration) {
             info.setItem(Registry.register(Registry.ITEM, id, new BlockItem(block, block.getItemSettings())));
         }
         registerMineable(block);
+        return info;
+    }
+
+    public static RegisteredEvent registerBlock(Identifier id, Block block) {
+        return registerBlock(id, block, null);
+    }
+
+    /**
+     * Register block and register item
+     * @param id Block id
+     * @param block Block
+     * @param settings Item Settings
+     * @return Registered info
+     */
+    public static RegisteredEvent registerBlock(Identifier id, Block block, @Nullable Item.Settings settings) {
+        RegisteredEvent info = new RegisteredEvent("block");
+        info.setBlock(Registry.register(Registry.BLOCK, id, block));
+        if (settings != null) {
+            info.setItem(Registry.register(Registry.ITEM, id, new BlockItem(block, settings)));
+        } else {
+            if (block instanceof BlockExt) {
+                info.setItem(Registry.register(Registry.ITEM, id, new BlockItem(block, ((BlockExt) block).getItemSettings())));
+            }
+        }
+        if (block instanceof BlockExt) {
+            registerMineable((BlockExt) block);
+        }
         return info;
     }
 
@@ -118,8 +136,8 @@ public class Registries {
      * @param blocks blocks
      * @return BlockEntityType
      */
-    public static BlockEntityType<?> registerBlockEntity(IdentifierExt id, Class<? extends BlockEntityExt> blockEntity, BlockExt... blocks) {
-        return Registry.register(Registry.BLOCK_ENTITY_TYPE, id, FabricBlockEntityTypeBuilder.create((FabricBlockEntityTypeBuilder.Factory<? extends BlockEntityExt>)(Supplier<BlockEntityExt>) () -> {
+    public static BlockEntityType<?> registerBlockEntity(Identifier id, Class<? extends BlockEntity> blockEntity, Block... blocks) {
+        return Registry.register(Registry.BLOCK_ENTITY_TYPE, id, FabricBlockEntityTypeBuilder.create((FabricBlockEntityTypeBuilder.Factory<? extends BlockEntity>)(Supplier<BlockEntity>) () -> {
             try {
                 return blockEntity.newInstance();
             } catch (InstantiationException e) {
@@ -136,21 +154,21 @@ public class Registries {
      * @param blockEntityType BlockEntityType
      * @return BlockEntityType
      */
-    public static BlockEntityType<?> registerBlockEntity(IdentifierExt id, BlockEntityType<?> blockEntityType) {
+    public static BlockEntityType<?> registerBlockEntity(Identifier id, BlockEntityType<?> blockEntityType) {
         return Registry.register(Registry.BLOCK_ENTITY_TYPE, id, blockEntityType);
     }
 
     /*
      * Alias
      */
-    public static BlockEntityType<?> registerTile(IdentifierExt id, BlockEntityType<?> blockEntityType) {
+    public static BlockEntityType<?> registerTile(Identifier id, BlockEntityType<?> blockEntityType) {
         return registerBlockEntity(id, blockEntityType);
     }
 
     /**
      * Alias
      */
-    public static BlockEntityType<?> registerTile(IdentifierExt id, Class<? extends BlockEntityExt> blockEntity, BlockExt... blocks) {
+    public static BlockEntityType<?> registerTile(Identifier id, Class<? extends BlockEntity> blockEntity, Block... blocks) {
         return registerBlockEntity(id, blockEntity, blocks);
     }
 
@@ -163,8 +181,8 @@ public class Registries {
      * @param height Entity height
      * @return EntityType
      */
-    public static EntityType<?> registerEntity(IdentifierExt id, EntityExt entity, SpawnGroup spawnGroup, float width, float height) {
-        EntityType entityType = Registry.register(Registry.ENTITY_TYPE, id, FabricEntityTypeBuilder.create(spawnGroup, (EntityType.EntityFactory<? extends EntityExt>)(Supplier<EntityExt>) () -> {
+    public static EntityType<?> registerEntity(Identifier id, Entity entity, SpawnGroup spawnGroup, float width, float height) {
+        EntityType entityType = Registry.register(Registry.ENTITY_TYPE, id, FabricEntityTypeBuilder.create(spawnGroup, (EntityType.EntityFactory<? extends Entity>)(Supplier<Entity>) () -> {
             try {
                 return entity.getClass().newInstance();
             } catch (InstantiationException e) {
@@ -188,9 +206,9 @@ public class Registries {
      * @param blocks blocks
      * @return BlockEntityType
      */
-    public static BlockEntityType registerBlockEntity(Class<? extends BlockEntityExt> blockEntity, BlockExt... blocks) {
+    public static BlockEntityType registerBlockEntity(Class<? extends BlockEntity> blockEntity, Block... blocks) {
         blockEntityIdCount++;
-        return registerBlockEntity(new IdentifierExt(MCPitanLib.MOD_ID, String.valueOf(blockEntityIdCount)), blockEntity, blocks);
+        return registerBlockEntity(new Identifier(MCPitanLib.MOD_ID, String.valueOf(blockEntityIdCount)), blockEntity, blocks);
     }
 
     /**
@@ -200,9 +218,9 @@ public class Registries {
      * @return Registered info
      */
     // IDがmcpitanlib:(数値)になるので注意
-    public static RegisteredEvent registerItem(ItemExt item) {
+    public static RegisteredEvent registerItem(Item item) {
         itemIdCount++;
-        return registerItem(new IdentifierExt(MCPitanLib.MOD_ID, String.valueOf(itemIdCount)), item);
+        return registerItem(new Identifier(MCPitanLib.MOD_ID, String.valueOf(itemIdCount)), item);
     }
 
     /**
@@ -212,9 +230,9 @@ public class Registries {
      * @return Registered info
      */
     // IDがmcpitanlib:(数値)になるので注意
-    public static RegisteredEvent registerBlock(BlockExt block) {
+    public static RegisteredEvent registerBlock(Block block) {
         itemIdCount++;
-        return registerBlock(new IdentifierExt(MCPitanLib.MOD_ID, String.valueOf(itemIdCount)), block);
+        return registerBlock(new Identifier(MCPitanLib.MOD_ID, String.valueOf(itemIdCount)), block);
     }
 
     /**
@@ -224,12 +242,12 @@ public class Registries {
      * @param spawnRate Spawn rate
      * @param maxHeight max height
      */
-    public static void registerGenerateOreInStone(BlockExt block, int size, int spawnRate, int maxHeight) {
-        registerGenerateOreInStone(new IdentifierExt(MCPitanLib.MOD_ID, Registry.ITEM.getId(block.asItem()).getPath() + "_ore"), block, size, spawnRate, maxHeight);
+    public static void registerGenerateOreInStone(Block block, int size, int spawnRate, int maxHeight) {
+        registerGenerateOreInStone(new Identifier(MCPitanLib.MOD_ID, Registry.ITEM.getId(block.asItem()).getPath() + "_ore"), block, size, spawnRate, maxHeight);
 
     }
 
-    public static void registerGenerateOreInStone(IdentifierExt id, BlockExt block, int size, int spawnRate, int maxHeight) {
+    public static void registerGenerateOreInStone(Identifier id, Block block, int size, int spawnRate, int maxHeight) {
         ConfiguredFeature<?, ?> CONFIGURED_FEATURE = new ConfiguredFeature(Feature.ORE,
                 new OreFeatureConfig(OreConfiguredFeatures.STONE_ORE_REPLACEABLES, block.getDefaultState(), size));
 
@@ -246,11 +264,11 @@ public class Registries {
                 RegistryKey.of(Registry.PLACED_FEATURE_KEY, id));
     }
 
-    public static void registerGenerateOre(BlockExt block, OreFeatureConfig.Target target, int size, int spawnRate, int maxHeight) {
-        registerGenerateOre(new IdentifierExt(MCPitanLib.MOD_ID, Registry.ITEM.getId(block.asItem()).getPath() + "_ore"), block, target, size, spawnRate, maxHeight);
+    public static void registerGenerateOre(Block block, OreFeatureConfig.Target target, int size, int spawnRate, int maxHeight) {
+        registerGenerateOre(new Identifier(MCPitanLib.MOD_ID, Registry.ITEM.getId(block.asItem()).getPath() + "_ore"), block, target, size, spawnRate, maxHeight);
     }
 
-    public static void registerGenerateOre(IdentifierExt id, BlockExt block, OreFeatureConfig.Target target, int size, int spawnRate, int maxHeight) {
+    public static void registerGenerateOre(Identifier id, Block block, OreFeatureConfig.Target target, int size, int spawnRate, int maxHeight) {
         ConfiguredFeature<?, ?> CONFIGURED_FEATURE = new ConfiguredFeature(Feature.ORE,
                 new OreFeatureConfig(target.target, block.getDefaultState(), size));
 
@@ -267,11 +285,11 @@ public class Registries {
                 RegistryKey.of(Registry.PLACED_FEATURE_KEY, id));
     }
 
-    public static void registerGenerateOreInStone(Biome biome, BlockExt block, int size, int spawnRate, int maxHeight) {
-        registerGenerateOreInStone(new IdentifierExt(MCPitanLib.MOD_ID, Registry.ITEM.getId(block.asItem()).getPath() + "_ore"), biome, block, size, spawnRate, maxHeight);
+    public static void registerGenerateOreInStone(Biome biome, Block block, int size, int spawnRate, int maxHeight) {
+        registerGenerateOreInStone(new Identifier(MCPitanLib.MOD_ID, Registry.ITEM.getId(block.asItem()).getPath() + "_ore"), biome, block, size, spawnRate, maxHeight);
     }
 
-    public static void registerGenerateOreInStone(IdentifierExt id, Biome biome, BlockExt block, int size, int spawnRate, int maxHeight) {
+    public static void registerGenerateOreInStone(Identifier id, Biome biome, Block block, int size, int spawnRate, int maxHeight) {
         ConfiguredFeature<?, ?> CONFIGURED_FEATURE = new ConfiguredFeature(Feature.ORE,
                 new OreFeatureConfig(OreConfiguredFeatures.STONE_ORE_REPLACEABLES, block.getDefaultState(), size));
 
@@ -290,11 +308,11 @@ public class Registries {
     }
 
 
-    public static void registerRecipe(IdentifierExt id, JsonObject recipe) {
+    public static void registerRecipe(Identifier id, JsonObject recipe) {
         RecipeManageHelper.addRecipe(id, recipe);
     }
 
-    public static void registerRecipe(IdentifierExt id, String recipeJsonStr) {
+    public static void registerRecipe(Identifier id, String recipeJsonStr) {
         Gson gson = new Gson();
         JsonObject recipe = gson.fromJson(recipeJsonStr, JsonObject.class);
         registerRecipe(id, recipe);

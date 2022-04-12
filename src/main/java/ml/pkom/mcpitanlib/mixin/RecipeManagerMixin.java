@@ -2,7 +2,6 @@ package ml.pkom.mcpitanlib.mixin;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import ml.pkom.mcpitanlib.api.util.IdentifierExt;
 import ml.pkom.mcpitanlib.api.util.RecipeManageHelper;
 import net.minecraft.recipe.RecipeManager;
 import net.minecraft.resource.ResourceManager;
@@ -20,7 +19,7 @@ public class RecipeManagerMixin {
 
     @Inject(method = "apply*", at = @At("HEAD"))
     public void interceptApply(Map<Identifier, JsonElement> map, ResourceManager resourceManager, Profiler profiler, CallbackInfo info) {
-        for (Map.Entry<IdentifierExt, JsonObject> recipe : RecipeManageHelper.getRecipes().entrySet()) {
+        for (Map.Entry<Identifier, JsonObject> recipe : RecipeManageHelper.getRecipes().entrySet()) {
             if (recipe == null) continue;
             map.put(recipe.getKey(), recipe.getValue());
         }

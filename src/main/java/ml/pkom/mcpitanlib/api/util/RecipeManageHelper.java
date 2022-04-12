@@ -1,18 +1,19 @@
 package ml.pkom.mcpitanlib.api.util;
 
 import com.google.gson.JsonObject;
+import net.minecraft.util.Identifier;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class RecipeManageHelper {
-    private static Map<IdentifierExt, JsonObject> recipes = new HashMap();
+    private static Map<Identifier, JsonObject> recipes = new HashMap();
 
-    public static Map<IdentifierExt, JsonObject> getRecipes() {
+    public static Map<Identifier, JsonObject> getRecipes() {
         return recipes;
     }
 
-    public static void addRecipe(IdentifierExt id, JsonObject recipe) {
+    public static void addRecipe(Identifier id, JsonObject recipe) {
         getRecipes().put(id, recipe);
     }
 }
