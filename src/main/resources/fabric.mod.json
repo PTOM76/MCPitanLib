@@ -28,7 +28,6 @@
     "fabricloader": "*",
     "fabric": "*",
     "minecraft": "*",
-    "architectury": "*"
   },
   "suggests": {
     "flamingo": "*"
