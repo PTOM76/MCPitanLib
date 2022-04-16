@@ -27,7 +27,7 @@
   "depends": {
     "fabricloader": "*",
     "fabric": "*",
-    "minecraft": "*",
+    "minecraft": "*"
   },
   "suggests": {
     "flamingo": "*"
