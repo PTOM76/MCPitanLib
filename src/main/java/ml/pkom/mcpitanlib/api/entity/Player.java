@@ -11,7 +11,7 @@ import java.util.UUID;
 /*
 PlayerEntity helper
  */
-public abstract class Player {
+public class Player {
     private final PlayerEntity entity;
 
     public PlayerEntity getEntity() {

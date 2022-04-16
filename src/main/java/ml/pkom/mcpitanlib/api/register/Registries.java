@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import ml.pkom.mcpitanlib.api.MCPitanLib;
 import ml.pkom.mcpitanlib.api.block.BlockExt;
+import ml.pkom.mcpitanlib.api.item.ItemExt;
 import ml.pkom.mcpitanlib.api.tag.MineableToolTags;
 import ml.pkom.mcpitanlib.api.util.RecipeManageHelper;
 import ml.pkom.mcpitanlib.api.event.MiningToolEvent;
@@ -63,6 +64,10 @@ public class Registries {
      */
     public static RegisteredEvent registerItem(String idStr, Item item) {
         return registerItem(new Identifier(idStr), item);
+    }
+
+    public static RegisteredEvent registerItem(ItemExt item) {
+        return registerItem(item.getItemId(), item);
     }
     
     /**
