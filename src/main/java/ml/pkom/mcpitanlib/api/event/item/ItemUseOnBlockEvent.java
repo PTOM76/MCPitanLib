@@ -7,6 +7,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -45,12 +48,40 @@ public class ItemUseOnBlockEvent {
         return hit;
     }
 
+    public BlockPos getBlockPos() {
+        return this.getHit().getBlockPos();
+    }
+
+    public Direction getSide() {
+        return this.getHit().getSide();
+    }
+
+    public Vec3d getHitPos() {
+        return this.getHit().getPos();
+    }
+
+    public boolean hitsInsideBlock() {
+        return this.getHit().isInsideBlock();
+    }
+
     public ItemStack getStack() {
         return stack;
     }
 
     public World getWorld() {
         return world;
+    }
+
+    public Direction getPlayerFacing() {
+        return getPlayerEntity() == null ? Direction.NORTH : getPlayerEntity().getHorizontalFacing();
+    }
+
+    public boolean shouldCancelInteraction() {
+        return getPlayerEntity() != null && getPlayerEntity().shouldCancelInteraction();
+    }
+
+    public float getPlayerYaw() {
+        return getPlayerEntity() == null ? 0.0f : getPlayerEntity().getYaw();
     }
 
     public static ItemUseOnBlockEvent of(Object obj) {
