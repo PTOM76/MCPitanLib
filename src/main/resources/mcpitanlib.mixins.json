@@ -3,6 +3,7 @@
   "minVersion": "0.8",
   "package": "ml.pkom.mcpitanlib.mixin",
   "mixins": [
+    "ItemUsageContextMixin",
     "MiningToolItemMixin",
     "RecipeManagerMixin"
   ],

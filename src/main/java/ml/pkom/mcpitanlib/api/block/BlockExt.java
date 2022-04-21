@@ -1,9 +1,18 @@
 package ml.pkom.mcpitanlib.api.block;
 
+import ml.pkom.mcpitanlib.api.event.block.ActionResultType;
+import ml.pkom.mcpitanlib.api.event.block.BlockUseEvent;
 import ml.pkom.mcpitanlib.api.util.IdentifierExt;
 import ml.pkom.mcpitanlib.api.item.ItemSettingsExt;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 public class BlockExt extends Block {
 
@@ -27,6 +36,27 @@ public class BlockExt extends Block {
         super(settings);
         this.blockId = id;
         this.blockSettings = settings;
+    }
+
+    @Override
+    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+        return onRightClick(new BlockUseEvent(state, world, pos, player, hand, hit)).getActionResult();
+    }
+
+    /**
+     * block right click event
+     * @param event ActionResultType
+     * @return BlockUseEvent
+     */
+    public ActionResultType onRightClick(BlockUseEvent event) {
+        return superOnRightClick(event);
+    }
+
+    /**
+     * super.onUse
+     */
+    public ActionResultType superOnRightClick(BlockUseEvent event) {
+        return ActionResultType.of(super.onUse(event.getBlockState(), event.getWorld(), event.getBlockPos(), event.getPlayerEntity(), event.getHand(), event.getBlockHit()));
     }
 
     public BlockSettingsExt getBlockSettings() {

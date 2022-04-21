@@ -6,23 +6,33 @@ import ml.pkom.mcpitanlib.api.MCPitanLib;
 import ml.pkom.mcpitanlib.api.block.BlockExt;
 import ml.pkom.mcpitanlib.api.item.ItemExt;
 import ml.pkom.mcpitanlib.api.tag.MineableToolTags;
+import ml.pkom.mcpitanlib.api.util.IdentifierExt;
+import ml.pkom.mcpitanlib.api.util.MCPitanUtils;
 import ml.pkom.mcpitanlib.api.util.RecipeManageHelper;
 import ml.pkom.mcpitanlib.api.event.MiningToolEvent;
 import ml.pkom.mcpitanlib.api.event.RegisteredEvent;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.fabricmc.fabric.api.client.screen.ContainerScreenFactory;
+import net.fabricmc.fabric.api.client.screen.ScreenProviderRegistry;
+import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
+import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.*;
 import net.minecraft.world.biome.Biome;
@@ -321,5 +331,18 @@ public class Registries {
         Gson gson = new Gson();
         JsonObject recipe = gson.fromJson(recipeJsonStr, JsonObject.class);
         registerRecipe(id, recipe);
+    }
+
+    public static void registerScreen(ScreenHandlerType type, ScreenRegistry.Factory factory) {
+        if (MCPitanUtils.isClient())
+            ScreenRegistry.register(type ,factory);
+    }
+
+    public static ScreenHandlerType registerScreenHandler(IdentifierExt id, ScreenHandlerRegistry.SimpleClientHandlerFactory factory) {
+        return ScreenHandlerRegistry.registerSimple(id ,factory);
+    }
+
+    public static ScreenHandlerType registerScreenHandler(IdentifierExt id, ScreenHandlerRegistry.ExtendedClientHandlerFactory factory) {
+        return ScreenHandlerRegistry.registerExtended(id ,factory);
     }
 }
