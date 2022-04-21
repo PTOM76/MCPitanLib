@@ -4,30 +4,37 @@ import ml.pkom.mcpitanlib.api.entity.Player;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.SimpleInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GuiScreenHandler extends ScreenHandler {
 
+    public Inventory inventory;
+
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Inventory inventory) {
+        this.inventory = inventory;
+    }
+
     public ScreenHandlerType<?> type = null;
     public boolean canUse = true;
 
-    public GuiScreenHandler(@Nullable ScreenHandlerType<?> type, int syncId) {
-        super(type, syncId);
-        this.type = type;
-    }
-
     public GuiScreenHandler(int syncId, PlayerInventory playerInventory) {
-        this(null, syncId);
+        this(syncId, playerInventory, new SimpleInventory(27));
     }
 
     public GuiScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory) {
-        this(syncId, playerInventory);
+        super(null, syncId);
+        this.inventory = inventory;
     }
 
     @Deprecated
@@ -133,4 +140,28 @@ public class GuiScreenHandler extends ScreenHandler {
         return slots;
     }
 
+    @Override
+    public ItemStack transferSlot(PlayerEntity player, int index) {
+        ItemStack newStack = ItemStack.EMPTY;
+        Slot slot = this.slots.get(index);
+        if (slot != null && slot.hasStack()) {
+            ItemStack originalStack = slot.getStack();
+            newStack = originalStack.copy();
+            if (index < this.inventory.size()) {
+                if (!this.insertItem(originalStack, this.inventory.size(), this.slots.size(), true)) {
+                    return ItemStack.EMPTY;
+                }
+            } else if (!this.insertItem(originalStack, 0, this.inventory.size(), false)) {
+                return ItemStack.EMPTY;
+            }
+
+            if (originalStack.isEmpty()) {
+                slot.setStack(ItemStack.EMPTY);
+            } else {
+                slot.markDirty();
+            }
+        }
+
+        return newStack;
+    }
 }
