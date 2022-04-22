@@ -10,6 +10,14 @@ public class BaseItemStack {
         return new BaseItemStack(itemStack);
     }
 
+    public BaseItemStack(Item item, int count) {
+        itemStack = new ItemStack(item, count);
+    }
+
+    public BaseItemStack(Item item) {
+        this(item, 1);
+    }
+
     public BaseItemStack(ItemStack itemStack) {
         setItemStack(itemStack);
     }
