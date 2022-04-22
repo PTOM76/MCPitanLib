@@ -1,0 +1,53 @@
+package ml.pkom.mcpitanlib.api.block;
+
+import net.minecraft.block.Material;
+
+public class Materials {
+    public static final BaseMaterial AIR = new BaseMaterial(Material.AIR);
+    public static final BaseMaterial STRUCTURE_VOID = new BaseMaterial(Material.STRUCTURE_VOID);
+    public static final BaseMaterial PORTAL = new BaseMaterial(Material.PORTAL);
+    public static final BaseMaterial CARPET = new BaseMaterial(Material.CARPET);
+    public static final BaseMaterial PLANT = new BaseMaterial(Material.PLANT);
+    public static final BaseMaterial UNDERWATER_PLANT = new BaseMaterial(Material.UNDERWATER_PLANT);
+    public static final BaseMaterial REPLACEABLE_PLANT = new BaseMaterial(Material.REPLACEABLE_PLANT);
+    public static final BaseMaterial NETHER_SHOOTS = new BaseMaterial(Material.NETHER_SHOOTS);
+    public static final BaseMaterial REPLACEABLE_UNDERWATER_PLANT = new BaseMaterial(Material.REPLACEABLE_UNDERWATER_PLANT);
+    public static final BaseMaterial WATER = new BaseMaterial(Material.WATER);
+    public static final BaseMaterial BUBBLE_COLUMN = new BaseMaterial(Material.BUBBLE_COLUMN);
+    public static final BaseMaterial LAVA = new BaseMaterial(Material.LAVA);
+    public static final BaseMaterial SNOW_LAYER = new BaseMaterial(Material.SNOW_LAYER);
+    public static final BaseMaterial FIRE = new BaseMaterial(Material.FIRE);
+    public static final BaseMaterial DECORATION = new BaseMaterial(Material.DECORATION);
+    public static final BaseMaterial COBWEB = new BaseMaterial(Material.COBWEB);
+    public static final BaseMaterial SCULK = new BaseMaterial(Material.SCULK);
+    public static final BaseMaterial REDSTONE_LAMP = new BaseMaterial(Material.REDSTONE_LAMP);
+    public static final BaseMaterial ORGANIC_PRODUCT = new BaseMaterial(Material.ORGANIC_PRODUCT);
+    public static final BaseMaterial SOIL = new BaseMaterial(Material.SOIL);
+    public static final BaseMaterial SOLID_ORGANIC = new BaseMaterial(Material.SOLID_ORGANIC);
+    public static final BaseMaterial DENSE_ICE = new BaseMaterial(Material.DENSE_ICE);
+    public static final BaseMaterial AGGREGATE = new BaseMaterial(Material.AGGREGATE);
+    public static final BaseMaterial SPONGE = new BaseMaterial(Material.SPONGE);
+    public static final BaseMaterial SHULKER_BOX = new BaseMaterial(Material.SHULKER_BOX);
+    public static final BaseMaterial WOOD = new BaseMaterial(Material.WOOD);
+    public static final BaseMaterial NETHER_WOOD = new BaseMaterial(Material.NETHER_WOOD);
+    public static final BaseMaterial BAMBOO_SAPLING = new BaseMaterial(Material.BAMBOO_SAPLING);
+    public static final BaseMaterial BAMBOO = new BaseMaterial(Material.BAMBOO);
+    public static final BaseMaterial WOOL = new BaseMaterial(Material.WOOL);
+    public static final BaseMaterial TNT = new BaseMaterial(Material.TNT);
+    public static final BaseMaterial LEAVES = new BaseMaterial(Material.LEAVES);
+    public static final BaseMaterial GLASS = new BaseMaterial(Material.GLASS);
+    public static final BaseMaterial ICE = new BaseMaterial(Material.ICE);
+    public static final BaseMaterial CACTUS = new BaseMaterial(Material.CACTUS);
+    public static final BaseMaterial STONE = new BaseMaterial(Material.STONE);
+    public static final BaseMaterial METAL = new BaseMaterial(Material.METAL);
+    public static final BaseMaterial SNOW_BLOCK = new BaseMaterial(Material.SNOW_BLOCK);
+    public static final BaseMaterial REPAIR_STATION = new BaseMaterial(Material.REPAIR_STATION);
+    public static final BaseMaterial BARRIER = new BaseMaterial(Material.BARRIER);
+    public static final BaseMaterial PISTON = new BaseMaterial(Material.PISTON);
+    public static final BaseMaterial MOSS_BLOCK = new BaseMaterial(Material.MOSS_BLOCK);
+    public static final BaseMaterial GOURD = new BaseMaterial(Material.GOURD);
+    public static final BaseMaterial EGG = new BaseMaterial(Material.EGG);
+    public static final BaseMaterial CAKE = new BaseMaterial(Material.CAKE);
+    public static final BaseMaterial AMETHYST = new BaseMaterial(Material.AMETHYST);
+    public static final BaseMaterial POWDER_SNOW = new BaseMaterial(Material.POWDER_SNOW);
+}

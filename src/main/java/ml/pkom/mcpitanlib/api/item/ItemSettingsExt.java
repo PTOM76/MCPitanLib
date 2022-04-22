@@ -17,8 +17,16 @@ public class ItemSettingsExt extends Item.Settings {
         return (ItemSettingsExt) this.maxDamage(maxDamage);
     }
 
-    public ItemSettingsExt setItemGroup(ItemGroup itemGroup) {
-        return (ItemSettingsExt) this.group(itemGroup);
+    public ItemSettingsExt setItemGroup(ItemGroup creativeTab) {
+        return (ItemSettingsExt) this.group(creativeTab);
+    }
+
+    public ItemSettingsExt setItemGroup(CreativeTab creativeTab) {
+        return setCreativeTab(creativeTab);
+    }
+
+    public ItemSettingsExt setCreativeTab(CreativeTab creativeTab) {
+        return setItemGroup(creativeTab.getCreativeTab());
     }
 
     public ItemSettingsExt makeNormalFood(int hunger, float saturationModifier) {

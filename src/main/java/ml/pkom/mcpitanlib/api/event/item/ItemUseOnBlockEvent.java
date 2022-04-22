@@ -1,6 +1,7 @@
 package ml.pkom.mcpitanlib.api.event.item;
 
 import ml.pkom.mcpitanlib.api.entity.Player;
+import ml.pkom.mcpitanlib.api.item.BaseItemStack;
 import ml.pkom.mcpitanlib.mixin.ItemUsageContextMixin;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -17,7 +18,7 @@ public class ItemUseOnBlockEvent {
     PlayerEntity player;
     Hand hand;
     BlockHitResult hit;
-    ItemStack stack;
+    BaseItemStack stack;
     World world;
 
     public ItemUseOnBlockEvent(PlayerEntity player, Hand hand, BlockHitResult hit) {
@@ -28,7 +29,7 @@ public class ItemUseOnBlockEvent {
         this.player = player;
         this.hand = hand;
         this.hit = hit;
-        this.stack = stack;
+        this.stack = BaseItemStack.of(stack);
         this.world = world;
     }
 
@@ -65,6 +66,10 @@ public class ItemUseOnBlockEvent {
     }
 
     public ItemStack getStack() {
+        return getBaseItemStack().getItemStack();
+    }
+
+    public BaseItemStack getBaseItemStack() {
         return stack;
     }
 

@@ -2,6 +2,7 @@ package ml.pkom.mcpitanlib.api.block;
 
 import ml.pkom.mcpitanlib.api.event.block.ActionResultType;
 import ml.pkom.mcpitanlib.api.event.block.BlockUseEvent;
+import ml.pkom.mcpitanlib.api.item.CreativeTab;
 import ml.pkom.mcpitanlib.api.util.IdentifierExt;
 import ml.pkom.mcpitanlib.api.item.ItemSettingsExt;
 import net.minecraft.block.Block;
@@ -25,6 +26,11 @@ public class BlockExt extends Block {
     public BlockExt(String id, BlockSettingsExt settings, ItemGroup itemGroup) {
         this(id, settings);
         setGroupTab(itemGroup);
+    }
+
+    public BlockExt(String id, BlockSettingsExt settings, CreativeTab creativeTab) {
+        this(id, settings);
+        setCreativeTab(creativeTab);
     }
 
     public BlockExt(String id, BlockSettingsExt settings, ItemSettingsExt itemSettings) {
@@ -88,6 +94,15 @@ public class BlockExt extends Block {
     public void setGroupTab(ItemGroup groupTab) {
         itemSettings.setItemGroup(groupTab);
     }
+
+    public void setGroupTab(CreativeTab groupTab) {
+        itemSettings.setItemGroup(groupTab);
+    }
+
+    public void setCreativeTab(CreativeTab groupTab) {
+        setGroupTab(groupTab);
+    }
+
 
     public void setItemSettings(ItemSettingsExt itemSettings) {
         this.itemSettings = itemSettings;

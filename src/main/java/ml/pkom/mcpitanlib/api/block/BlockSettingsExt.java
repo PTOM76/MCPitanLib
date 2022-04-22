@@ -15,6 +15,14 @@ public class BlockSettingsExt extends FabricBlockSettings {
         super(material, color);
     }
 
+    public BlockSettingsExt(BaseMaterial material, BaseMaterialColor color) {
+        super(material.getMaterial(), color.getMapColor());
+    }
+
+    public BlockSettingsExt(BaseMaterial material) {
+        super(material.getMaterial(), material.getMaterial().getColor());
+    }
+
     public BlockSettingsExt(AbstractBlock.Settings settings) {
         super(settings);
     }

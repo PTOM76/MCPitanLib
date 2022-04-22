@@ -2,17 +2,17 @@ package ml.pkom.mcpitanlib.api.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import ml.pkom.mcpitanlib.api.event.render.DrawBackgroundEvent;
-import ml.pkom.mcpitanlib.api.util.IdentifierExt;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 
 public class GuiScreen extends HandledScreen<ScreenHandler> {
 
-    public IdentifierExt TEXTURE = new IdentifierExt("minecraft", "textures/gui/container/generic_54.png");
+    public Identifier TEXTURE = new Identifier("minecraft", "textures/gui/container/generic_54.png");
 
     public GuiScreen(ScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
@@ -54,11 +54,11 @@ public class GuiScreen extends HandledScreen<ScreenHandler> {
         drawTexture(event.getMatrices(), x, y, 0, 0, backgroundWidth, backgroundHeight);
     }
 
-    public void setTexture(IdentifierExt TEXTURE) {
+    public void setTexture(Identifier TEXTURE) {
         this.TEXTURE = TEXTURE;
     }
 
-    public IdentifierExt getTexture() {
+    public Identifier getTexture() {
         return TEXTURE;
     }
 }

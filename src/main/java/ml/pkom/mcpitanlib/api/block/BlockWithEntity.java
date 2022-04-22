@@ -1,6 +1,7 @@
 package ml.pkom.mcpitanlib.api.block;
 
 import ml.pkom.mcpitanlib.api.event.TileCreateEvent;
+import ml.pkom.mcpitanlib.api.item.CreativeTab;
 import ml.pkom.mcpitanlib.api.item.ItemSettingsExt;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -15,6 +16,10 @@ import net.minecraft.world.World;
 public class BlockWithEntity extends BlockExt implements BlockEntityProviderExt {
     public BlockWithEntity(String id, BlockSettingsExt settings, ItemGroup itemGroup) {
         super(id, settings, itemGroup);
+    }
+
+    public BlockWithEntity(String id, BlockSettingsExt settings, CreativeTab creativeTab) {
+        super(id, settings, creativeTab);
     }
 
     public BlockWithEntity(String id, BlockSettingsExt settings, ItemSettingsExt itemSettings) {
