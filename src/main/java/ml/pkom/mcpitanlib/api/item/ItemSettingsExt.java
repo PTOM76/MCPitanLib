@@ -3,6 +3,7 @@ package ml.pkom.mcpitanlib.api.item;
 import ml.pkom.mcpitanlib.api.builder.FoodComponentBuilder;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
+import org.jetbrains.annotations.Nullable;
 
 public class ItemSettingsExt extends Item.Settings {
     public ItemSettingsExt() {
@@ -17,15 +18,15 @@ public class ItemSettingsExt extends Item.Settings {
         return (ItemSettingsExt) this.maxDamage(maxDamage);
     }
 
-    public ItemSettingsExt setItemGroup(ItemGroup creativeTab) {
+    public ItemSettingsExt setItemGroup(@Nullable ItemGroup creativeTab) {
         return (ItemSettingsExt) this.group(creativeTab);
     }
 
-    public ItemSettingsExt setItemGroup(CreativeTab creativeTab) {
+    public ItemSettingsExt setItemGroup(@Nullable CreativeTab creativeTab) {
         return setCreativeTab(creativeTab);
     }
 
-    public ItemSettingsExt setCreativeTab(CreativeTab creativeTab) {
+    public ItemSettingsExt setCreativeTab(@Nullable CreativeTab creativeTab) {
         return setItemGroup(creativeTab.getCreativeTab());
     }
 
