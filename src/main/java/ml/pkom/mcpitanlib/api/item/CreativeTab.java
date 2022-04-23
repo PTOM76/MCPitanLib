@@ -5,6 +5,7 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
+import org.jetbrains.annotations.Nullable;
 
 public class CreativeTab {
     private ItemGroup creativeTab;
@@ -67,14 +68,14 @@ public class CreativeTab {
         return getCreativeTab().getIcon();
     }
 
-    public static CreativeTab create(Identifier id, ItemStack icon) {
+    public static @Nullable CreativeTab create(Identifier id, @Nullable ItemStack icon) {
         ItemGroup itemGroup = FabricItemGroupBuilder.build(
                 id,
                 () -> icon);
         return new CreativeTab(itemGroup);
     }
 
-    public static CreativeTab create(Identifier id, BaseItemStack icon) {
+    public static @Nullable CreativeTab create(Identifier id, @Nullable BaseItemStack icon) {
         return create(id, icon.getItemStack());
     }
 }

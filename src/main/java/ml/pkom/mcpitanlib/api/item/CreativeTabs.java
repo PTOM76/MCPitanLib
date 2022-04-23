@@ -51,7 +51,10 @@ public class CreativeTabs {
         }
     }
 
-    public static CreativeTab create(Identifier id, ItemStack icon) {
+    public static CreativeTab create(Identifier id, @Nullable ItemStack icon) {
+        return CreativeTab.create(id, icon);
+    }
+    public static CreativeTab create(Identifier id, @Nullable BaseItemStack icon) {
         return CreativeTab.create(id, icon);
     }
 }

@@ -1,7 +1,9 @@
 package ml.pkom.mcpitanlib.api.item;
 
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import org.jetbrains.annotations.Nullable;
 
 public class BaseItemStack {
     private ItemStack itemStack;
@@ -14,11 +16,19 @@ public class BaseItemStack {
         itemStack = new ItemStack(item, count);
     }
 
+    public BaseItemStack(Block block, int count) {
+        itemStack = new ItemStack(block.asItem(), count);
+    }
+
     public BaseItemStack(Item item) {
         this(item, 1);
     }
 
-    public BaseItemStack(ItemStack itemStack) {
+    public BaseItemStack(Block block) {
+        this(block.asItem(), 1);
+    }
+
+    public BaseItemStack(@Nullable ItemStack itemStack) {
         setItemStack(itemStack);
     }
 
@@ -46,7 +56,7 @@ public class BaseItemStack {
         return itemStack.getMaxDamage();
     }
 
-    public ItemStack origin() {
+    public @Nullable ItemStack origin() {
         return getItemStack();
     }
 
@@ -62,11 +72,11 @@ public class BaseItemStack {
         return getItemStack().isEmpty();
     }
 
-    public ItemStack getItemStack() {
+    public @Nullable ItemStack getItemStack() {
         return itemStack;
     }
 
-    public void setItemStack(ItemStack itemStack) {
+    public void setItemStack(@Nullable ItemStack itemStack) {
         this.itemStack = itemStack;
     }
 }
