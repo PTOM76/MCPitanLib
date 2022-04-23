@@ -67,4 +67,8 @@ public class BlockUseEvent {
     public Item getItemInHand() {
         return getStackInHand().getItem();
     }
+
+    public boolean isClient() {
+        return getWorld().isClient();
+    }
 }

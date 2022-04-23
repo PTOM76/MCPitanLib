@@ -31,4 +31,8 @@ public class ItemUseEvent {
     public Hand getHand() {
         return hand;
     }
+
+    public boolean isClient() {
+        return getWorld().isClient();
+    }
 }

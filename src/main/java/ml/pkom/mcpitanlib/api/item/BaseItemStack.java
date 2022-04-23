@@ -8,23 +8,23 @@ import org.jetbrains.annotations.Nullable;
 public class BaseItemStack {
     private ItemStack itemStack;
 
-    public static BaseItemStack of(ItemStack itemStack) {
+    public static BaseItemStack of(@Nullable ItemStack itemStack) {
         return new BaseItemStack(itemStack);
     }
 
-    public BaseItemStack(Item item, int count) {
+    public BaseItemStack(@Nullable Item item, int count) {
         itemStack = new ItemStack(item, count);
     }
 
-    public BaseItemStack(Block block, int count) {
+    public BaseItemStack(@Nullable Block block, int count) {
         itemStack = new ItemStack(block.asItem(), count);
     }
 
-    public BaseItemStack(Item item) {
+    public BaseItemStack(@Nullable Item item) {
         this(item, 1);
     }
 
-    public BaseItemStack(Block block) {
+    public BaseItemStack(@Nullable Block block) {
         this(block.asItem(), 1);
     }
 

@@ -1,5 +1,6 @@
 package ml.pkom.mcpitanlib.api.block;
 
+import ml.pkom.mcpitanlib.api.event.ScreenHandlerCreateEvent;
 import ml.pkom.mcpitanlib.api.event.block.ActionResultType;
 import ml.pkom.mcpitanlib.api.event.block.BlockUseEvent;
 import ml.pkom.mcpitanlib.api.item.CreativeTab;
@@ -9,11 +10,18 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 public class BlockExt extends Block {
 
@@ -110,5 +118,23 @@ public class BlockExt extends Block {
 
     public ItemSettingsExt getItemSettings() {
         return itemSettings;
+    }
+
+    @Nullable
+    @Override
+    public NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
+        return new SimpleNamedScreenHandlerFactory((syncId, inventory, player) ->
+                createScreenHandler(new ScreenHandlerCreateEvent(state, world, pos, syncId, inventory, player)), getTitle()
+        );
+    }
+
+    @Nullable
+    public ScreenHandler createScreenHandler(ScreenHandlerCreateEvent event) {
+        return null;
+    }
+
+    @Nullable
+    public Text getTitle() {
+        return new LiteralText("");
     }
 }

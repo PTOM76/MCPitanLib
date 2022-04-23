@@ -102,4 +102,8 @@ public class ItemUseOnBlockEvent {
     public ItemUsageContext toIUC() {
         return new ItemUsageContext(getPlayerEntity(), getHand(), getHit());
     }
+
+    public boolean isClient() {
+        return getWorld().isClient();
+    }
 }
