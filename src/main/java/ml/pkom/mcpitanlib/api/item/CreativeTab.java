@@ -18,11 +18,11 @@ public class CreativeTab {
         return new CreativeTab(itemGroup);
     }
 
-    public ItemGroup getCreativeTab() {
+    public @Nullable ItemGroup getCreativeTab() {
         return creativeTab;
     }
 
-    public void setCreativeTab(ItemGroup creativeTab) {
+    public void setCreativeTab(@Nullable ItemGroup creativeTab) {
         this.creativeTab = creativeTab;
     }
 
