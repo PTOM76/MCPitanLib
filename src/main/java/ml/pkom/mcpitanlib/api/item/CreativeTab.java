@@ -36,6 +36,22 @@ public class CreativeTab {
         addItemStacks(list);
     }
 
+    public void addBaseItemStacks(DefaultedList<BaseItemStack> list) {
+        DefaultedList<ItemStack> stackList = DefaultedList.ofSize(list.size(), ItemStack.EMPTY);
+        for (BaseItemStack itemStack : list) {
+            stackList.add(itemStack.getItemStack());
+        }
+        addItemStacks(stackList);
+    }
+
+    public void addBaseItemStack(BaseItemStack itemStack) {
+        addItemStack(itemStack.getItemStack());
+    }
+
+    public void addItemStack(BaseItemStack itemStack) {
+        addBaseItemStack(itemStack);
+    }
+
     public void disableScrollbar() {
         getCreativeTab().setNoScrollbar();
     }
