@@ -32,7 +32,7 @@ public class CreativeTab {
 
     public void addItemStack(ItemStack itemStack) {
         DefaultedList<ItemStack> list = DefaultedList.ofSize(1, ItemStack.EMPTY);
-        list.add(itemStack);
+        list.set(0, itemStack);
         addItemStacks(list);
     }
 
