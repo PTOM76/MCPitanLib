@@ -5,6 +5,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.function.Supplier;
+
 public class CreativeTabs {
     public static final CreativeTab BUILDING_BLOCKS = new CreativeTab(ItemGroup.BUILDING_BLOCKS);
     public static final CreativeTab DECORATIONS = new CreativeTab(ItemGroup.DECORATIONS);
@@ -51,10 +53,10 @@ public class CreativeTabs {
         }
     }
 
-    public static CreativeTab create(Identifier id, @Nullable ItemStack icon) {
-        return CreativeTab.create(id, icon);
+    public static CreativeTab create(Identifier id, Supplier<ItemStack> stackSupplier) {
+        return CreativeTab.create(id, stackSupplier);
     }
-    public static CreativeTab create(Identifier id, @Nullable BaseItemStack icon) {
-        return CreativeTab.create(id, icon);
+    public static CreativeTab createByBIS(Identifier id, Supplier<BaseItemStack> stackSupplier) {
+        return CreativeTab.createByBIS(id, stackSupplier);
     }
 }

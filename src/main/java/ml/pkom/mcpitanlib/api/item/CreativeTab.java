@@ -7,6 +7,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.function.Supplier;
+
 public class CreativeTab {
     private ItemGroup creativeTab;
 
@@ -38,8 +40,10 @@ public class CreativeTab {
 
     public void addBaseItemStacks(DefaultedList<BaseItemStack> list) {
         DefaultedList<ItemStack> stackList = DefaultedList.ofSize(list.size(), ItemStack.EMPTY);
+        int i = 0;
         for (BaseItemStack itemStack : list) {
-            stackList.add(itemStack.getItemStack());
+            stackList.set(i, itemStack.getItemStack());
+            ++i;
         }
         addItemStacks(stackList);
     }
@@ -84,14 +88,14 @@ public class CreativeTab {
         return getCreativeTab().getIcon();
     }
 
-    public static @Nullable CreativeTab create(Identifier id, @Nullable ItemStack icon) {
+    public static CreativeTab create(Identifier id, Supplier<ItemStack> stackSupplier) {
         ItemGroup itemGroup = FabricItemGroupBuilder.build(
                 id,
-                () -> icon);
+                stackSupplier);
         return new CreativeTab(itemGroup);
     }
 
-    public static @Nullable CreativeTab create(Identifier id, @Nullable BaseItemStack icon) {
-        return create(id, icon.getItemStack());
+    public static CreativeTab createByBIS(Identifier id, Supplier<BaseItemStack> stackSupplier) {
+        return create(id, () -> stackSupplier.get().getItemStack());
     }
 }
