@@ -1,11 +1,16 @@
 package ml.pkom.mcpitanlib.api.entity;
 
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerAbilities;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
+import java.util.OptionalInt;
 import java.util.UUID;
 
 /*
@@ -80,6 +85,14 @@ public class Player {
      */
     public int getInvSize() {
         return getInv().size();
+    }
+
+    public OptionalInt openGuiScreen(NamedScreenHandlerFactory factory) {
+        return getEntity().openHandledScreen(factory);
+    }
+
+    public OptionalInt openGuiScreen(World world, BlockState state, BlockPos pos) {
+        return openGuiScreen(state.createScreenHandlerFactory(world, pos));
     }
 
     public void insertStack(ItemStack stack) {
