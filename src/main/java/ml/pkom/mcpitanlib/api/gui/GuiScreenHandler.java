@@ -28,21 +28,13 @@ public class GuiScreenHandler extends ScreenHandler {
     public ScreenHandlerType<?> type = null;
     public boolean canUse = true;
 
-    public static ScreenHandlerType<?> getStaticScreenHandlerType() {
-        GuiScreenHandler gui = new GuiScreenHandler(-1, null);
-        return gui.getScreenHandlerType();
+    public GuiScreenHandler(ScreenHandlerType type, int syncId, PlayerInventory playerInventory) {
+        this(type, syncId, playerInventory, new SimpleInventory(27));
     }
 
-    public ScreenHandlerType<?> getScreenHandlerType() {
-        return type;
-    }
-
-    public GuiScreenHandler(int syncId, PlayerInventory playerInventory) {
-        this(syncId, playerInventory, new SimpleInventory(27));
-    }
-
-    public GuiScreenHandler(int syncId, PlayerInventory playerInventory, Inventory inventory) {
-        super(getStaticScreenHandlerType(), syncId);
+    public GuiScreenHandler(ScreenHandlerType type, int syncId, PlayerInventory playerInventory, Inventory inventory) {
+        super(type, syncId);
+        this.type = type;
         this.inventory = inventory;
     }
 
