@@ -343,4 +343,12 @@ public class Registries {
     public static ScreenHandlerType registerScreenHandler(IdentifierExt id, ScreenHandlerRegistry.ExtendedClientHandlerFactory factory) {
         return ScreenHandlerRegistry.registerExtended(id ,factory);
     }
+
+    public static ScreenHandlerType registerSimpleScreenHandler(IdentifierExt id, ScreenHandlerRegistry.SimpleClientHandlerFactory factory) {
+        return ScreenHandlerRegistry.registerSimple(id ,factory);
+    }
+
+    public static ScreenHandlerType registerExtendedScreenHandler(IdentifierExt id, ScreenHandlerRegistry.ExtendedClientHandlerFactory factory) {
+        return ScreenHandlerRegistry.registerExtended(id ,factory);
+    }
 }

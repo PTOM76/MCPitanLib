@@ -2,13 +2,13 @@ package ml.pkom.mcpitanlib.api.event.render;
 
 import net.minecraft.client.util.math.MatrixStack;
 
-public class DrawBackgroundEvent {
+public class ScreenRenderEvent {
     MatrixStack matrices;
     float delta;
     int mouseX;
     int mouseY;
 
-    public DrawBackgroundEvent(MatrixStack matrices, float delta, int mouseX, int mouseY) {
+    public ScreenRenderEvent(MatrixStack matrices, float delta, int mouseX, int mouseY) {
         this.matrices = matrices;
         this.delta = delta;
         this.mouseX = mouseX;
