@@ -27,6 +27,19 @@ public class GuiScreen extends HandledScreen<ScreenHandler> {
     }
 
     @Override
+    public void drawForeground(MatrixStack matrices, int mouseX, int mouseY) {
+        renderTextureFore(new ScreenRenderEvent(matrices, 0, mouseX, mouseY));
+    }
+
+    /**
+     *
+     * cannot use event.delta
+     */
+    public void renderTextureFore(ScreenRenderEvent event) {
+        super.drawForeground(event.getMatrices(), event.getMouseX(), event.getMouseY());
+    }
+
+    @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         render(new ScreenRenderEvent(matrices, delta, mouseX, mouseY));
     }
