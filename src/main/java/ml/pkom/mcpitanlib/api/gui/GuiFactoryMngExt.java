@@ -1,6 +1,6 @@
 package ml.pkom.mcpitanlib.api.gui;
 
-import ml.pkom.mcpitanlib.api.register.Registries;
+import ml.pkom.mcpitanlib.api.register.v2.Registries;
 import ml.pkom.mcpitanlib.api.util.IdentifierExt;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.entity.player.PlayerInventory;

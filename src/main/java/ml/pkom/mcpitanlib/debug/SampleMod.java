@@ -5,7 +5,7 @@ import ml.pkom.mcpitanlib.api.block.BlockSettingsExt;
 import ml.pkom.mcpitanlib.api.tag.MineableToolTags;
 import ml.pkom.mcpitanlib.api.util.IdentifierExt;
 import ml.pkom.mcpitanlib.api.item.ItemGroupExt;
-import ml.pkom.mcpitanlib.api.register.Registries;
+import ml.pkom.mcpitanlib.api.register.v2.Registries;
 import net.minecraft.block.MapColor;
 import net.minecraft.block.Material;
 

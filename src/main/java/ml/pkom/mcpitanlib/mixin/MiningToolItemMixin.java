@@ -2,7 +2,7 @@ package ml.pkom.mcpitanlib.mixin;
 
 import ml.pkom.mcpitanlib.api.tag.MineableToolTags;
 import ml.pkom.mcpitanlib.api.event.MiningToolEvent;
-import ml.pkom.mcpitanlib.api.register.Registries;
+import ml.pkom.mcpitanlib.api.register.v2.Registries;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.*;
 import org.spongepowered.asm.mixin.Final;
