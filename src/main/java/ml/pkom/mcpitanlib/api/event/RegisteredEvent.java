@@ -5,8 +5,6 @@ import net.minecraft.item.Item;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.PlacedFeature;
 
-import javax.annotation.Nullable;
-
 public abstract class RegisteredEvent {
     private Item item;
     private Block block;
