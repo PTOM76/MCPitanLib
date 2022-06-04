@@ -3,6 +3,7 @@ package ml.pkom.mcpitanlib.api.register.v2;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import ml.pkom.mcpitanlib.api.MCPitanLib;
+import ml.pkom.mcpitanlib.api.biome.BiomeType;
 import ml.pkom.mcpitanlib.api.block.BlockExt;
 import ml.pkom.mcpitanlib.api.event.*;
 import ml.pkom.mcpitanlib.api.item.ItemExt;
@@ -308,7 +309,7 @@ public class Registries {
     }
 
     // 参考: TreeConfiguredFeatures & Tech Rebornのゴムの木
-    public static FeatureRegisteredEvent registerGenerateTree(Identifier id, List<Biome> biomes, Block log, Block leaves, @Nullable Block sapling, int baseHeight, int firstRandomHeight, int secondRandomHeight, int radius) {
+    public static FeatureRegisteredEvent registerGenerateTree(Identifier id, List<BiomeType> biomes, Block log, Block leaves, @Nullable Block sapling, int baseHeight, int firstRandomHeight, int secondRandomHeight, int radius) {
         TreeFeatureConfig.Builder builder = new TreeFeatureConfig.Builder(
                 BlockStateProvider.of(log),
                 new StraightTrunkPlacer(baseHeight, firstRandomHeight, secondRandomHeight),
@@ -331,8 +332,8 @@ public class Registries {
         Registry.register(BuiltinRegistries.PLACED_FEATURE, id,
                 PLACED_FEATURE);
 
-        for (Biome biome : biomes) {
-            Predicate<BiomeSelectionContext> predicate = BiomeSelectors.includeByKey(BuiltinRegistries.BIOME.getKey(biome).get());
+        for (BiomeType biome : biomes) {
+            Predicate<BiomeSelectionContext> predicate = BiomeSelectors.includeByKey(biome.getRegistryKey());
             BiomeModifications.addFeature(predicate, GenerationStep.Feature.VEGETAL_DECORATION,
                     RegistryKey.of(Registry.PLACED_FEATURE_KEY, id));
         }
@@ -340,10 +341,18 @@ public class Registries {
     }
 
     public static FeatureRegisteredEvent registerGenerateOreInStone(Biome biome, Block block, int size, int spawnRate, int maxHeight) {
+        return registerGenerateOreInStone(new BiomeType(biome), block, size, spawnRate, maxHeight);
+    }
+
+    public static FeatureRegisteredEvent registerGenerateOreInStone(BiomeType biome, Block block, int size, int spawnRate, int maxHeight) {
         return registerGenerateOreInStone(new Identifier(MCPitanLib.MOD_ID, Registry.ITEM.getId(block.asItem()).getPath() + "_ore"), biome, block, size, spawnRate, maxHeight);
     }
 
     public static FeatureRegisteredEvent registerGenerateOreInStone(Identifier id, Biome biome, Block block, int size, int spawnRate, int maxHeight) {
+        return registerGenerateOreInStone(id, new BiomeType(biome), block, size, spawnRate, maxHeight);
+    }
+
+    public static FeatureRegisteredEvent registerGenerateOreInStone(Identifier id, BiomeType biome, Block block, int size, int spawnRate, int maxHeight) {
         ConfiguredFeature<?, ?> CONFIGURED_FEATURE = new ConfiguredFeature(Feature.ORE,
                 new OreFeatureConfig(OreConfiguredFeatures.STONE_ORE_REPLACEABLES, block.getDefaultState(), size));
 
@@ -355,7 +364,7 @@ public class Registries {
         Registry.register(BuiltinRegistries.PLACED_FEATURE, id,
                 PLACED_FEATURE);
 
-        Predicate<BiomeSelectionContext> predicate = BiomeSelectors.includeByKey(BuiltinRegistries.BIOME.getKey(biome).get());
+        Predicate<BiomeSelectionContext> predicate = BiomeSelectors.includeByKey(biome.getRegistryKey());
         BiomeModifications.addFeature(predicate, GenerationStep.Feature.UNDERGROUND_ORES,
                 RegistryKey.of(Registry.PLACED_FEATURE_KEY, id));
         return new FeatureRegisteredEvent(CONFIGURED_FEATURE, PLACED_FEATURE);
