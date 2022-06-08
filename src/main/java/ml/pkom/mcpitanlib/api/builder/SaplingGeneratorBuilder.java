@@ -2,12 +2,11 @@ package ml.pkom.mcpitanlib.api.builder;
 
 import ml.pkom.mcpitanlib.api.event.FeatureRegisteredEvent;
 import net.minecraft.block.sapling.SaplingGenerator;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Random;
 
 public class SaplingGeneratorBuilder {
     public static SaplingGenerator create(ConfiguredFeature<?, ?> feature) {

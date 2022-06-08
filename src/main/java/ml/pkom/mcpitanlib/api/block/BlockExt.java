@@ -4,8 +4,9 @@ import ml.pkom.mcpitanlib.api.event.ScreenHandlerCreateEvent;
 import ml.pkom.mcpitanlib.api.event.block.ActionResultType;
 import ml.pkom.mcpitanlib.api.event.block.BlockUseEvent;
 import ml.pkom.mcpitanlib.api.item.CreativeTab;
-import ml.pkom.mcpitanlib.api.util.IdentifierExt;
 import ml.pkom.mcpitanlib.api.item.ItemSettingsExt;
+import ml.pkom.mcpitanlib.api.text.TextUtil;
+import ml.pkom.mcpitanlib.api.util.IdentifierExt;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -13,9 +14,7 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -135,6 +134,6 @@ public class BlockExt extends Block {
 
     @Nullable
     public Text getTitle() {
-        return new LiteralText("");
+        return TextUtil.literal("");
     }
 }

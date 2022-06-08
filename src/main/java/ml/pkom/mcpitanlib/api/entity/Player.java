@@ -108,7 +108,7 @@ public class Player {
     }
 
     public String getName() {
-        return getEntity().getName().asString();
+        return getEntity().getName().getString();
     }
 
     public UUID getUUID() {
