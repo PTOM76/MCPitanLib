@@ -67,6 +67,7 @@ dependencies {
 	modApi "me.sargunvohra.mcmods:autoconfig1u:3.4.0"
 	include "me.sargunvohra.mcmods:autoconfig1u:3.4.0"
 
+
 	 */
 }
 
