@@ -89,11 +89,11 @@ public class BlockExt extends Block {
         this.blockId = blockId;
     }
 
-    public IdentifierExt getblockIdAsIdentifierExt() {
+    public IdentifierExt getBlockIdAsIdentifierExt() {
         return new IdentifierExt(getBlockId());
     }
 
-    public IdentifierExt getblockIdAsIdentifierExt(String MOD_ID) {
+    public IdentifierExt getBlockIdAsIdentifierExt(String MOD_ID) {
         return new IdentifierExt(MOD_ID, getBlockId());
     }
 
