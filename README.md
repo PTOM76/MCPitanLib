@@ -1,2 +1,1 @@
-# MCPitanLib
-- https://jitpack.io/#PTOM76/MCPitanLib/
+# [The repository has been migrated here](https://github.com/Pitan76/MCPitanLib)
